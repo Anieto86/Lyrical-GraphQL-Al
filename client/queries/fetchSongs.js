@@ -24,3 +24,12 @@ export const ADD_SONG = gql`
     }
   }
 `;
+
+export const GET_SONG = gql`
+  query GetSong($id: ID!) {
+    song(id: $id) {
+      title
+      id
+    }
+  }
+`;

@@ -23,7 +23,7 @@ const SongList = () => {
       refetchQueries: [{ query: GET_SONGS }],
       //alternativamente se puede conrrer esta sintax que entiendo que es mejor a user refetchQueries: [{ query: GET_SONGS }],
     });
-    // .then(() => data.refetch());
+    // .then(() => data.refetch()); // tiene un problema como lo hice
   };
 
   return (
@@ -32,7 +32,7 @@ const SongList = () => {
       {data.songs.map(({ title, id }, i) => (
         <div key={id} className='collection-item'>
           <li>
-            {title}
+            {title} {id}
             <button onClick={() => handleDelete(id)}>Delete</button>
           </li>
         </div>
