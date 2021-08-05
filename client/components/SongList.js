@@ -3,6 +3,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import { Link, useHistory } from "react-router-dom";
 import { GET_SONGS, DELETE_SONG } from "../queries/fetchSongs";
 
+import "../style/style.css";
+
 const SongList = () => {
   const history = useHistory();
   const { error, loading, data } = useQuery(GET_SONGS);
@@ -17,21 +19,25 @@ const SongList = () => {
 
   const handleDelete = (id) => {
     deleteSong({
-      variable: { id },
+      variables: { id },
+      refetchQueries: [{ query: GET_SONGS }],
+      //alternativamente se puede conrrer esta sintax que entiendo que es mejor a user refetchQueries: [{ query: GET_SONGS }],
     });
+    // .then(() => data.refetch());
   };
 
   return (
     <div className='container'>
       <h3>Song List</h3>
       {data.songs.map(({ title, id }, i) => (
-        <div key={id}>
+        <div key={id} className='collection-item'>
           <li>
-            {title} {id} <button onClick={handleDelete}>Delete</button>
+            {title}
+            <button onClick={() => handleDelete(id)}>Delete</button>
           </li>
         </div>
       ))}
-      <button onClick={handleSubmit(id)}>Create song</button>
+      <button onClick={handleSubmit}>Create song</button>
     </div>
   );
 };
