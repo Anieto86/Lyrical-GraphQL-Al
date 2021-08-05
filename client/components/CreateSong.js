@@ -15,6 +15,7 @@ const CreateSong = () => {
     e.preventDefault();
     addSong({
       variables: { title },
+      //!Esta linea sirve para solucionar the fetching problem fetch our list of songs is only being executed( warm cache)
       refetchQueries: [{ query: GET_SONGS }],
     }).then(() => history.push("/"));
   };
