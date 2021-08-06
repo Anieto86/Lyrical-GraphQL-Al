@@ -34,7 +34,6 @@ export const GET_SONG = gql`
       lyrics {
         id
         content
-
         likes
       }
     }
@@ -51,6 +50,7 @@ export const ADD_LYRIC = gql`
       lyrics {
         id
         content
+        likes
       }
     }
   }
