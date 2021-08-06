@@ -32,7 +32,7 @@ const SongList = () => {
       {data.songs.map(({ title, id }, i) => (
         <div key={id} className='collection-item'>
           <li>
-            {title} {id}
+            <Link to={`/songs/${id}`}> {title} </Link>
             <button onClick={() => handleDelete(id)}>Delete</button>
           </li>
         </div>

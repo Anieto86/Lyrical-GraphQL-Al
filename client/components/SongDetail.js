@@ -3,22 +3,26 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_SONG } from "../queries/fetchSongs";
 
+import LyricCreate from "./LyricCreate";
+import LyricList from "./LyricList";
+
 const SongDetail = ({ match }) => {
   const { loading, data, error } = useQuery(GET_SONG, {
     //hay que pasar el id:con match.params.id.
-    variables: { id: match.params.id },
+    variables: { id: match.params.id.trim() },
+    //segun el tutorial se tiene que refechar el query pero lo testie y no fue necesario. Debe ser por la actualizacion de apolloClient. El tutorial es viejo.
+    refetchQueries: [{ query: GET_SONG }],
   });
-  console.log(match);
 
   if (loading) return <h2>Loading...</h2>;
-  if (error) return <h2>Error...</h2>;
+  if (error) return `${error}`;
 
   return (
     <div>
       <Link to='/'>Back</Link>
       <h3>{data.song.title}</h3>
-      <h3>{data.song.id}</h3>
-      <h3>{match.params.id}</h3>
+      <LyricCreate songId={data.song.id} />
+      <LyricList songLyric={data.song.lyrics} />
     </div>
   );
 };
